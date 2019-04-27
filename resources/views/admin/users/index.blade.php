@@ -18,24 +18,24 @@
             </tr>
             </thead>
             <tbody>
-            @if(@users)
+            @if($users)
                 @foreach($users as $user)
-            <tr>
-                <th scope="row">{{$user->id}}</th>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->role->name}}</td>
-                <td>
-                    {{$user->is_active == 1 ? 'Active' : 'Not Active'}}
-                </td>
-{{--                <td>{{$user->password}}</td>--}}
-                <td>{{$user->created_at->diffForHumans()}}</td>
-                <td>{{$user->updated_at->diffForHumans()}}</td>
-                <td>
-                    <a href="#" class="btn btn-success">Edit</a>
-                    <button class="btn btn-danger">Delete</button>
-                </td>
-              </tr>
+                    <tr>
+                        <th scope="row">{{$user->id}}</th>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->role->name}}</td>
+                        <td>
+                            {{$user->is_active == 1 ? 'Active' : 'Not Active'}}
+                        </td>
+        {{--                <td>{{$user->password}}</td>--}}
+                        <td>{{$user->created_at->diffForHumans()}}</td>
+                        <td>{{$user->updated_at->diffForHumans()}}</td>
+                        <td>
+                            <a href="#" class="btn btn-success">Edit</a>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                      </tr>
                    @endforeach
                 @endif
             </tbody>

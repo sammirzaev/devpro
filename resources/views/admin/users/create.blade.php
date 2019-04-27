@@ -3,7 +3,7 @@
 @section('content')
     <h1>Create Users</h1>
 
-      {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store', 'class'=>'col-md-3 col-lg-6']) !!}
+      {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store', 'files'=>true]) !!}
 
           <div class="form-group">
               {!! Form::label('name', 'Full Name: ') !!}
@@ -22,6 +22,10 @@
                {!! Form::select('status',array(1=>'Active', 0=>'Not Active'), 0, ['class'=>'form-control']) !!}
            </div>
            <div class="form-group">
+                {!! Form::label('file', 'File Upload: ') !!}
+                {!! Form::file('file',null, ['class'=>'form-control']) !!}
+           </div>
+           <div class="form-group">
                {!! Form::label('password', 'Password: ') !!}
                {!! Form::password('password', ['class'=>'form-control']) !!}
             </div>
@@ -30,7 +34,8 @@
               {!! Form::submit('Create User', ['class'=>'btn btn-success']) !!}
           </div>
 
+
       {!! Form::close() !!}
-
-
+      @include('includes.form_error')
 @stop
+
