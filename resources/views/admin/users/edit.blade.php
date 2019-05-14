@@ -36,10 +36,16 @@
         </div>
 
         <div class="form-group">
-            {!! Form::submit('Update User', ['class'=>'btn btn-success']) !!}
+            {!! Form::submit('Update User', ['class'=>'btn btn-success col-sm-2 pull-left']) !!}
         </div>
+        {!! Form::close() !!}
 
-    {!! Form::close() !!}
+        {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id] ]) !!}
+            <div class='form-group'>
+                {!! Form::submit('Delete User',['class'=>'btn btn-danger col-sm-2 pull-right']) !!}
+            </div>
+        {!! Form::close() !!}
+
 
     </div>
     @include('includes.form_error')
