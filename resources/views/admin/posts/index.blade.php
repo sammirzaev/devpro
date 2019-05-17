@@ -27,7 +27,7 @@
                <th scope="row">{{$post->id}}</th>
                <td><img height="50" src="{{ $post->photo ? $post->photo->file : 'public/images/picture-not-available-clipart-12.jpg' }}" alt=""></td>
                <td>{{$post->user->name}}</td>
-               <td>{{$post->category->name}}</td>
+               <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
                <td>{{$post->title}}</td>
                <td>{{$post->body}}</td>
                <td>{{$post->created_at->diffForHumans()}}</td>
