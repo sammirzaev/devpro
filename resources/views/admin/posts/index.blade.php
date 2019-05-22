@@ -1,10 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
+   @if(Session::has('deleted_post'))
+      <p class="alert alert-danger" role="alert">{{ session('deleted_post') }}</p>
+   @endif
 
    <h1>Posts</h1>
 
-   <table class="table table-striped table-dark">
+   <table class="table table-striped table-dark" id="datatable">
       <thead>
       <tr>
          <th scope="col">ID</th>
@@ -26,20 +29,23 @@
             <tr>
                <th scope="row">{{$post->id}}</th>
                <td><img height="50" src="{{ $post->photo ? $post->photo->file : 'public/images/picture-not-available-clipart-12.jpg' }}" alt=""></td>
-               <td>{{$post->user->name}}</td>
+               <td><a href="{{route('posts.edit', $post->id)}}">{{$post->user->name}}</a></td>
                <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
                <td>{{$post->title}}</td>
-               <td>{{$post->body}}</td>
+               <td>{{str_limit($post->body, 7)}}</td>
                <td>{{$post->created_at->diffForHumans()}}</td>
                <td>{{$post->updated_at->diffForHumans()}}</td>
+               {!! Form::open(['method'=>'DELETE', 'id'=>'confirm_delete', 'action'=>['AdminPostsController@destroy', $post->id]]) !!}
                <td>
-                  <button class="btn btn-danger">DELETE</button>
+                  <input type="hidden" name="id" value="{{$post->id}}">
+                  {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
                </td>
+               {!! Form::close() !!}
             </tr>
          @endforeach
       @endif
       </tbody>
    </table>
-
-
 @stop
+
+

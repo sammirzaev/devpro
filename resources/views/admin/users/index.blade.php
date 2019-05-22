@@ -19,7 +19,6 @@
                 <th scope="col">Password</th>
                 <th scope="col">Created Date</th>
                 <th scope="col">Updated Date</th>
-                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -34,12 +33,12 @@
                         <td>
                             {{$user->is_active == 1 ? 'Active' : 'Not Active'}}
                         </td>
-                        <td>{{$user->password}}</td>
+                        <td>{{str_limit($user->password, 7)}}</td>
                         <td>{{$user->created_at->diffForHumans()}}</td>
                         <td>{{$user->updated_at->diffForHumans()}}</td>
-                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id]]) !!}
+                        {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id], 'id'=>'postDelete']) !!}
                         <td>
-                            {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
+                            {!! Form::submit('Delete User',['class'=>'btn btn-danger col-sm-2 pull-right']) !!}
                         </td>
                         {!! Form::close() !!}
                       </tr>
@@ -49,3 +48,4 @@
      </table>
 
  @stop
+@include('includes.sweetalert')

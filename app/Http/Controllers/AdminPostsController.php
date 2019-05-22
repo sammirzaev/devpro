@@ -6,8 +6,11 @@ use App\Category;
 use App\Http\Requests\PostsCreateRequest;
 use App\Photo;
 use App\Post;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminPostsController extends Controller
 {
@@ -20,7 +23,6 @@ class AdminPostsController extends Controller
     {
         //
         $posts = Post::all();
-
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -58,7 +60,7 @@ class AdminPostsController extends Controller
 
         $user->post()->create($input);
 
-        return redirect('/admin/posts');
+        return redirect('/admin/posts')->withSuccessMessage('Post has been created successfully!');
 
 
 
@@ -84,6 +86,9 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         //
+        $post = Post::findOrFail($id);
+        $categories = Category::pluck('name', 'id');
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -96,6 +101,19 @@ class AdminPostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $input = $request->all();
+
+        if($file = $request->file('photo_id'))
+        {
+           $name = time() . $file->getClientOriginalName();
+           $file->move('images', $name);
+           $photo = Photo::create(['file'=>$name]);
+           $input['photo_id'] = $photo->id;
+        }
+
+        Auth::user()->post()->where('id', $id)->first()->update($input);
+
+        return redirect('/admin/posts');
     }
 
     /**
@@ -107,5 +125,12 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::findOrFail($id);
+        unlink(public_path().$post->photo->file);
+        $post->delete();
+        Session::flash('deleted_post', 'Post has been deleted successfully');
+        return redirect('/admin/posts')->withSuccessMessage('Post has been Deleted successfully!');
+
     }
+
 }

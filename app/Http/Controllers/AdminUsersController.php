@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class AdminUsersController extends Controller
@@ -25,6 +26,7 @@ class AdminUsersController extends Controller
         //
         $users = User::all();
 
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -37,7 +39,6 @@ class AdminUsersController extends Controller
     {
         //
         $roles = Role::pluck('name', 'id')->all();
-
         return view('admin.users.create', compact('roles'));
     }
 
@@ -69,7 +70,7 @@ class AdminUsersController extends Controller
 
         User::create($input);
 
-        return redirect('/admin/users');
+        return redirect('/admin/users')->withSuccessMessage('User has been created successfully!');
     }
 
     /**

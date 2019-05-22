@@ -40,9 +40,9 @@
         </div>
         {!! Form::close() !!}
 
-        {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id] ]) !!}
+        {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id], 'id'=>'postDelete']) !!}
             <div class='form-group'>
-                {!! Form::submit('Delete User',['class'=>'btn btn-danger col-sm-2 pull-right']) !!}
+            {!! Form::submit('Delete User',['class'=>'btn btn-danger col-sm-2 pull-right']) !!}
             </div>
         {!! Form::close() !!}
 
@@ -51,3 +51,4 @@
     @include('includes.form_error')
 @stop
 
+@include('includes.sweetalert')
