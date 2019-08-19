@@ -1,8 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-     @if(Session::has('deleted_user'))
-       <p class="alert alert-danger" role="alert">{{ session('deleted_user') }}</p>
+     @if(Session::has('user_created'))
+         <button type="button" class="close" data-dismiss="alert">×</button>
+         <p class="alert alert-success" role="alert">{{ session('deleted_user') }}</p>
      @endif
 
     <h1>Users</h1>
@@ -22,6 +23,7 @@
             </tr>
             </thead>
             <tbody>
+{{--            <img  height="50" src="{{$user->photo ? $user->photo->file : '/images/picture-not-available-clipart-12.jpg'}}" alt="">--}}
             @if($users)
                 @foreach($users as $user)
                     <tr>
@@ -38,7 +40,7 @@
                         <td>{{$user->updated_at->diffForHumans()}}</td>
                         {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id], 'id'=>'postDelete']) !!}
                         <td>
-                            {!! Form::submit('Delete User',['class'=>'btn btn-danger col-sm-2 pull-right']) !!}
+                            {!! Form::submit('Delete',['class'=>'btn btn-danger pull-right']) !!}
                         </td>
                         {!! Form::close() !!}
                       </tr>

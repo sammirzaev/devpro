@@ -8,12 +8,20 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+
 
 #admin-page
 {
   padding-top: 0px;
+}
+
+.nested-media
+{
+  margin-top:60px;
+  margin-bottom: 20px;
+}
+
+.comment-reply
+{
+  display: none;
 }

@@ -8,17 +8,13 @@
     <h1>Categories</h1>
 <div class="col-sm-4">
     {!! Form::open(['method'=>'POST', 'action'=>'AdminCategoryController@store', 'files'=>true]) !!}
-
     <div class="form-group">
         {!! Form::label('name', 'Category: ') !!}
         {!! Form::text('name',null, ['class'=>'form-control']) !!}
     </div>
-
     <div class="form-group">
         {!! Form::submit('Create Category', ['class'=>'btn btn-success']) !!}
     </div>
-
-
     {!! Form::close() !!}
     @include('includes.form_error')
 </div>
@@ -39,6 +35,7 @@
                     <tr>
                         <th scope="row">{{$category->id}}</th>
                         <td><a href="{{route('categories.edit', $category->id)}}">{{$category->name}}</td></td>
+{{--                        <td><a href="{{route('categories.edit', $category->id)}}">{{$category->name}}</td></td>--}}
                         <td>{{$category->created_at->diffForHumans()}}</td>
                         <td>{{$category->updated_at->diffForHumans()}}</td>
                         {!! Form::open(['method'=>'DELETE', 'id'=>'confirm_delete', 'action'=>['AdminCategoryController@destroy', $category->id]]) !!}

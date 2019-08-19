@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+
+
+   <h1>Posts</h1>
    @if(Session::has('deleted_post'))
       <p class="alert alert-danger" role="alert">{{ session('deleted_post') }}</p>
    @endif
-
-   <h1>Posts</h1>
-
    <table class="table table-striped table-dark" id="datatable">
       <thead>
       <tr>
@@ -16,6 +16,8 @@
          <th scope="col">Category</th>
          <th scope="col">Title</th>
          <th scope="col">Body</th>
+         <th scope="col">Post Link</th>
+         <th scope="col">Comment</th>
          <th scope="col">Created Date</th>
          <th scope="col">Updated Date</th>
          <th scope="col"></th>
@@ -33,6 +35,8 @@
                <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
                <td>{{$post->title}}</td>
                <td>{{str_limit($post->body, 7)}}</td>
+               <td><a target="_blank" href="{{route('home.post', $post->id)}}">View Post</a></td>
+               <td><a href="{{route('comments.show', $post->id)}}">View Comments</a></td>
                <td>{{$post->created_at->diffForHumans()}}</td>
                <td>{{$post->updated_at->diffForHumans()}}</td>
                {!! Form::open(['method'=>'DELETE', 'id'=>'confirm_delete', 'action'=>['AdminPostsController@destroy', $post->id]]) !!}

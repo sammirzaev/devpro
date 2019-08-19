@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>Edit Post</h1>
+    <h1>Edit Category</h1>
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         {!! Form::model($categories, ['method'=>'PATCH', 'action'=>['AdminCategoryController@update', $categories->id], 'files'=>true]) !!}
 
         <div class="form-group">
@@ -12,13 +12,13 @@
         </div>
 
         <div class="form-group">
-            {!! Form::submit('Update Category', ['class'=>'btn btn-primary col-sm-3 pull-left']) !!}
+            {!! Form::submit('Update Category', ['class'=>'btn btn-primary pull-left']) !!}
         </div>
         {!! Form::close() !!}
 
         {!! Form::open(['method'=>'DELETE', 'action'=>['AdminCategoryController@destroy', $categories->id], 'id'=>'postDelete']) !!}
         <div class="form-group">
-                {!! Form::submit('Delete', ['class'=>'btn btn-danger delete col-sm-3 pull-right']) !!}
+                {!! Form::submit('Delete Category', ['class'=>'btn btn-danger delete pull-right']) !!}
         </div>
         {!! Form::close() !!}
 
