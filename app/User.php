@@ -43,6 +43,15 @@ class User extends Authenticatable
     }
 
 
+    public function getGravatarAttribute()
+    {
+
+        $hash = md5(strtolower(trim($this->attributes['email']))) . "?d=mm&s=60";
+
+        return "https://secure.gravatar.com/avatar/$hash";
+
+    }
+
 
 //    public function setPasswordAttribute($password)
 //    {

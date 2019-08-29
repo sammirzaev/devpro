@@ -56,7 +56,8 @@
     <!-- Comment -->
     <div class="media">
         <a class="pull-left" href="#">
-            <img class="media-object" src="{{$comment->photo ? $comment->photo : '/images/picture-not-available-clipart-12.jpg'}}" alt="" width="50">
+{{--            <img class="media-object" src="{{$comment->photo ? $comment->photo : '/images/picture-not-available-clipart-12.jpg'}}" alt="" width="50">--}}
+            <img class="media-object" src="{{Auth::user()->gravatar }}" alt="" width="50">
         </a>
         <div class="media-body">
             <h4 class="media-heading">{{$comment->author}}
@@ -78,29 +79,29 @@
                                  </h4>
                                  {{$reply->body}}
                              </div>
-                             <div class="comment-reply-container">
-                                 <button class="toggle-reply btn btn-primary pull-right nested-media" style="margin-bottom: 20px;">Reply</button>
-                                 <div class="comment-reply col-md-10 row" style="display: none; margin-top: 30px;">
-                                     {{-- =============================REPLY FORM========================  --}}
-                                     {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
-                                     <input type="hidden" name="comment_id" value="{{$comment->id}}">
-                                     <div class="form-group">
-                                         {!! Form::label('body', 'Reply: ') !!}
-                                         {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>1]) !!}
-                                     </div>
-                                     <div class="form-group">
-                                         {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
-                                     </div>
-                                     {!! Form::close() !!}
-                                     {{-- ===========================END REPLY FORM========================  --}}
-                                 </div>
-                             </div>
                          </div>
                          <!-- End Nested Comment -->
                      </div>
                       @endif
                      @endforeach
                  @endif
+                <div class="comment-reply-container">
+                    <button class="toggle-reply btn btn-primary pull-right nested-media" style="margin-bottom: 20px;">Reply</button>
+                    <div class="comment-reply col-md-10 row" style="display: none; margin-top: 30px;">
+                        {{-- =============================REPLY FORM========================  --}}
+                        {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
+                        <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                        <div class="form-group">
+                            {!! Form::label('body', 'Reply: ') !!}
+                            {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>1]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+                        </div>
+                        {!! Form::close() !!}
+                        {{-- ===========================END REPLY FORM========================  --}}
+                    </div>
+                </div>
         </div>
     </div>
     @endforeach

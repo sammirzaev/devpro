@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 
+
 class AdminPostsController extends Controller
 {
     /**
@@ -23,7 +24,7 @@ class AdminPostsController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        $posts = Post::paginate(2);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -103,7 +104,6 @@ class AdminPostsController extends Controller
     {
         //
         $input = $request->all();
-
         if($file = $request->file('photo_id'))
         {
            $name = time() . $file->getClientOriginalName();
